@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Header/>
-    <Main/>
+    <Header @cerca="setTerm" />
+    <Main
+    :searching="searchTerm"
+    />
   </div>
 </template>
 
@@ -14,10 +16,25 @@ export default {
   components: {
     Header,
     Main
+  },
+  data() {
+    return {
+      searchTerm:""
+    }
+  },
+  methods: {
+    setTerm (setSearch) {
+      this.SearchTerm = setSearch;
+    }
   }
 }
 </script>
 
 <style lang="scss">
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 </style>
