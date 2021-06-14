@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Header @cerca="setTerm" />
+    <Header @cerca="setTerm" @reset="reset"/>
     <Main
-    :searching="searchTerm"
+    :movies="films"
     />
   </div>
 </template>
@@ -11,6 +11,8 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import Header from './components/Header.vue'
 import Main from './components/Main.vue'
+import axios from 'axios';
+
 export default {
   name: 'App',
   components: {
@@ -19,12 +21,27 @@ export default {
   },
   data() {
     return {
-      searchTerm:""
+      searchTerm:"",
+      films: []
     }
   },
   methods: {
     setTerm (setSearch) {
-      this.SearchTerm = setSearch;
+      axios
+            .get('https://api.themoviedb.org/3/search/movie', {
+              params: {
+                api_key: '566ba9ef10ccfee32a5a7380346f0a0a',
+                    query: setSearch,
+                    language: 'it-IT'
+                }
+            })
+            .then(
+              (response) => {
+                this.films = response.data.results;
+                    // console.log(this.films);
+                }
+            );
+            this.searchTerm = setSearch;
     }
   }
 }

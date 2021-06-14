@@ -1,31 +1,20 @@
 <template>
     <div>
-
+        <div class="film" v-for="(movie, index) in movies" :key="index">
+            <h1>{{ movie.title }}</h1>
+            <h2>{{ movie.original_title }}</h2>
+            <h2>{{ movie.original_language }}</h2>
+            <h2>{{ movie.vote_average }}</h2>
+        </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
     name: 'Main',
-    created: function() {
-        axios
-            .get('https://api.themoviedb.org/3/search/movie', {
-                params: {
-                    api_key: '566ba9ef10ccfee32a5a7380346f0a0a',
-                    query: 'ritorno',
-                    language: 'it-IT'
-                }
-            })
-            .then(
-                (res) => {
-                    console.log(res);
-                }
-            )
-    },
     props: {
-        searching: String
+        movies: Array
     },
     data() {
         return {
@@ -36,8 +25,25 @@ export default {
 
 <style lang="scss" scoped>
     div {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        overflow: auto;
         height: calc(100vh - 100px);
         background-color: #E94F02;
+    }
+
+    .film {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 15%;
+        height: 300px;
+        margin: 20px;
+        padding-left: 5px;
+        background-color: black;
+        font-size: 10px;
+        color: white;
     }
 
 </style>
