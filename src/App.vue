@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <Header @cerca="setTerm" @reset="reset"/>
+    <Header @cerca="setTerm"/>
     <Main
     :movies="films"
+    :series="series"
+    :cover="films.poster_path"
     />
   </div>
 </template>
@@ -22,7 +24,8 @@ export default {
   data() {
     return {
       searchTerm:"",
-      films: []
+      films: [],
+      series: [],
     }
   },
   methods: {
@@ -38,7 +41,20 @@ export default {
             .then(
               (response) => {
                 this.films = response.data.results;
-                    // console.log(this.films);
+                }
+            );
+      axios
+            .get('https://api.themoviedb.org/3/search/tv', {
+              params: {
+                api_key: '566ba9ef10ccfee32a5a7380346f0a0a',
+                    query: setSearch,
+                    language: 'it-IT'
+                }
+            })
+            .then(
+              (response) => {
+                this.series = response.data.results;
+                console.log(this.series);
                 }
             );
             this.searchTerm = setSearch;
