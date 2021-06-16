@@ -4,7 +4,7 @@
     <Main
     :movies="films"
     :series="series"
-    :cover="films.poster_path"
+    :search="searching"
     />
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
       searchTerm:"",
       films: [],
       series: [],
+      searching: false,
     }
   },
   methods: {
@@ -41,6 +42,7 @@ export default {
             .then(
               (response) => {
                 this.films = response.data.results;
+                this.searching = true;
                 }
             );
       axios
@@ -54,9 +56,12 @@ export default {
             .then(
               (response) => {
                 this.series = response.data.results;
-                console.log(this.series);
+                // console.log(this.series);
+                this.searching = true;
+
                 }
             );
+
             this.searchTerm = setSearch;
     }
   }
