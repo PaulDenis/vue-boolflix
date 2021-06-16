@@ -11,7 +11,8 @@
             alt="Copertina Film" class="copertina">
             <img 
             v-else
-            src="../assets/images/anteprima.png" alt="">
+            src="../assets/images/anteprima.png" alt=""
+            class="copertina">
             <img 
               class="bandiera"
               v-if="movie.original_language=='it' "
@@ -42,7 +43,8 @@
             alt="Copertina Serie" class="copertina">
             <img 
             v-else
-            src="../assets/images/anteprima.png" alt="">
+            src="../assets/images/anteprima.png" alt=""
+            class="copertina">
             <img 
               class="bandiera"
               v-if="serie.original_language=='it' "
@@ -133,33 +135,43 @@ export default {
         font-size: 10px;
         color: white;
         overflow: hidden;
+        &:hover {
+            * {
+                visibility: visible;
+                z-index: 2;
+            }
+            .copertina {
+                z-index: 1;
+            }
+        }
 
         * {
+            visibility: hidden;
             position: relative;
-            z-index: 2;
+            z-index: 1;
+            margin-left: 5px;
         }
         .bandiera {
             width: 25px;
         }
         .copertina {
+            visibility: visible;
             position: absolute;
-            z-index: 1;
+            z-index: 2;
             width: 100%;
+            margin-left: 0;
             
-            &:hover {
-                z-index: 1;
-            }
         }
         .overlay {
             position: absolute;
             z-index: 1;
             height: 100%;
             width: 100%;
+            margin-left: 0;
+
             background-color: rgba(0,0,0,0.5);
         }
-        .copertina ~ .overlay:hover {
-            z-index: 1;
-        }
+        
     }
 
 </style>
